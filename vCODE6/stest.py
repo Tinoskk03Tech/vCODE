@@ -51,6 +51,28 @@ def modifier_tache():
             print("Indexe not correspondant à une tache, merci")
     except ValueError:
         print("Veuillez saisir un entier")
+        
+def sauvergarder_txt():
+    with open("taches.txt", "w", encoding="utf-8") as f:
+        for tache in taches:
+            f.write(tache + "\n")
+            
+    print("Taches sauveegardées avec succèes")
+    
+def charger_txt():
+    try:
+        with open("taches.txt", "r", encoding="utf-8") as fichier:
+            lignes = fichier.readlines()
+            for ligne in lignes:
+                tache = ligne.strip()
+                if tache:
+                    taches.append(tache)
+                    
+        for i, tache in enumerate(taches, 1):
+            print(f"{i}. {tache}")
+            
+    except FileNotFoundError:
+        print("→ Aucun fichier de sauvegarde trouvé. Nouveau départ !")
     
 while True:
     print("\n---MENU---")
@@ -58,7 +80,9 @@ while True:
     print("2. Ajouter tache")
     print("3. Supprimer tache")
     print("4. Modifier une tache")
-    print("5. Quitter")
+    print("5. Sauvergarder les taches")
+    print("6. Charger les taches sauvegarder")
+    print("7. Quitter")
     
     choix = int(input("\nQuel est votre choix : "))
     
@@ -71,6 +95,10 @@ while True:
     elif choix == 4:
         modifier_tache()
     elif choix == 5:
+        sauvergarder_txt()
+    elif choix == 6:
+        charger_txt()
+    elif choix == 7:
         print("Au revoir")
         break
     else:
